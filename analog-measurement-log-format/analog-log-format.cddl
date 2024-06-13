@@ -1,0 +1,119 @@
+; SPDX-License-Identifier: BSD-3-Clause
+; ------------------------------------------------------------------------------
+; BSD 3-Clause "New" or "Revised" License
+; ------------------------------------------------------------------------------
+; Copyright 2024, Fraunhofer Institute for Secure Information Technology SIT.
+; All rights reserved.
+; ------------------------------------------------------------------------------
+; Log format for analog hardware measurements.
+; ------------------------------------------------------------------------------
+; Author:        Michael Eckel <michael.eckel@sit.fraunhofer.de>
+; Date Modified: 2024-06-10T10:47:28+00:00
+; Date Created:  2024-06-10T10:47:28+00:00
+; ------------------------------------------------------------------------------
+
+AnalogMeasurement = [
+    version-tag: uint,  ; version of the format specification
+    start-time: Time,
+    measurements: [ * MeasurementSeries ]
+]
+
+MeasurementSeries = (
+    target: Target,
+    ?env-params: [ * NameValuePair ],
+    ?start-time: Time,
+    unit: Unit,
+    unit-multiple: UnitMultiple,
+    measurements: RegularMeasurementSeries
+               // IrregularMeasurementSeries,
+)
+
+Target = [
+    id: tstr,
+    ? config-params: [ * NameValuePair ],
+]
+
+NameValuePair = (
+    name: text,
+    value: any,
+)
+
+RegularMeasurementSeries = {
+    values => [ * NumericalValue ],
+    interval-frequency-duration,
+}
+
+interval-frequency-duration //= (interval => Time)
+interval-frequency-duration //= (frequency => Frequency)
+interval-frequency-duration //= (duration => Time)
+values                        = 0
+interval                      = 1
+frequency                     = 2
+duration                      = 3
+
+IrregularMeasurementSeries = [ * (
+        current-time: Time,
+        NumericalValue,
+    ),
+]
+
+Time = [
+    seconds:   uint / float,
+    unit-mult: UnitMultipleSi,
+]
+
+Frequency = [
+    hertz:         uint / float,
+    unit-multiple: UnitMultipleSi,
+]
+
+NumericalValue = (
+    value: int / float,
+)
+
+Unit = &(
+    UNIT_UNDEFINED                 :  0,
+    UnitElectricalSi,
+)  ; EXTENSION POINT for future units
+
+UnitElectricalSi = &(
+    UNIT_ELECTRICAL_SI_NONE        :  1,  ; none    (raw ADC)
+    UNIT_ELECTRICAL_SI_VOLTAGE     :  2,  ; Volt    (V or E)
+    UNIT_ELECTRICAL_SI_CURRENT     :  3,  ; Ampere  (I or i)
+    UNIT_ELECTRICAL_SI_RESISTANCE  :  4,  ; Ohm     (R)
+    UNIT_ELECTRICAL_SI_CONDUCTANCE :  5,  ; Siemens (G)
+    UNIT_ELECTRICAL_SI_CAPACITANCE :  6,  ; Farad   (C)
+    UNIT_ELECTRICAL_SI_CHARGE      :  7,  ; Coulomb (Q)
+    UNIT_ELECTRICAL_SI_INDUCTANCE  :  8,  ; Henry   (L or H)
+    UNIT_ELECTRICAL_SI_POWER       :  9,  ; Watts   (W)
+    UNIT_ELECTRICAL_SI_IMPEDANCE   : 10,  ; Ohm     (Z)
+    UNIT_ELECTRICAL_SI_FREQUENCY   : 11,  ; Hertz   (Hz)
+)
+
+UnitMultiple = &(
+    UnitMultipleSi,
+)  ; EXTENSION POINT for future unit multiples
+
+UnitMultipleSi = &(
+    UNIT_MULTIPLE_SI_YOCTO         : -24,  ; y       (10^-24)
+    UNIT_MULTIPLE_SI_ZEPTO         : -21,  ; z       (10^-21)
+    UNIT_MULTIPLE_SI_ATTO          : -18,  ; a       (10^-18)
+    UNIT_MULTIPLE_SI_FEMTO         : -15,  ; f       (10^-15)
+    UNIT_MULTIPLE_SI_PICO          : -12,  ; p       (10^-12)
+    UNIT_MULTIPLE_SI_NANO          :  -9,  ; n       (10^-9)
+    UNIT_MULTIPLE_SI_MICRO         :  -6,  ; u       (10^-6)
+    UNIT_MULTIPLE_SI_MILLI         :  -3,  ; m       (10^-3)
+    UNIT_MULTIPLE_SI_CENTI         :  -2,  ; c       (10^-2)
+    UNIT_MULTIPLE_SI_DECI          :  -1,  ; d       (10^-1)
+    UNIT_MULTIPLE_SI_BASE          :   0,  ; base    (10^0)
+    UNIT_MULTIPLE_SI_DECA          :   1,  ; da      (10^1)
+    UNIT_MULTIPLE_SI_HECTO         :   2,  ; h       (10^2)
+    UNIT_MULTIPLE_SI_KILO          :   3,  ; k       (10^3)
+    UNIT_MULTIPLE_SI_MEGA          :   6,  ; M       (10^6)
+    UNIT_MULTIPLE_SI_GIGA          :   9,  ; G       (10^9)
+    UNIT_MULTIPLE_SI_TERA          :  12,  ; T       (10^12)
+    UNIT_MULTIPLE_SI_PETA          :  15,  ; P       (10^15)
+    UNIT_MULTIPLE_SI_EXA           :  18,  ; E       (10^18)
+    UNIT_MULTIPLE_SI_ZETTA         :  21,  ; Z       (10^21)
+    UNIT_MULTIPLE_SI_YOTTA         :  24,  ; Y       (10^24)
+)
