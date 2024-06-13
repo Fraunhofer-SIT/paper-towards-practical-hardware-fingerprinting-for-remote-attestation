@@ -1,0 +1,4 @@
+[submodule "GenericAttCDDL/Core/QCBOR"]
+	path = GenericAttCDDL/Core/QCBOR
+	url = https://github.com/laurencelundblade/QCBOR
+	branch = master
