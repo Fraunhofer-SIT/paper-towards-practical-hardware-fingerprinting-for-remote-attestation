@@ -4,7 +4,7 @@ For further details, see the [LICENSE](LICENSE) file.
 
 # Paper: Towards Practical Hardware Fingerprinting for Remote Attestation
 
-Our paper "[Towards Practical Hardware Fingerprinting for Remote Attestation](https://ifipsec2024.co.uk/program/)" by [Michael Eckel](mailto:michael.eckel@sit.fraunhofer.de), [Florian Fenzl](mailto:florian.fenzl@sit.fraunhofer.de), and [Lukas Jäger](mailto:lukas.jaeger@sit.fraunhofer.de) (all [Fraunhofer SIT](https://www.sit.fraunhofer.de/) and [ATHENE Center](https://www.athene-center.de/)) was first published at the 39th International Conference on ICT Systems Security and Privacy Protection ([IFIP SEC 2024](https://ifipsec2024.co.uk/)), organized by Edinburgh Napier University in Edinburgh, United Kingdom.
+Our paper "[Towards Practical Hardware Fingerprinting for Remote Attestation](https://doi.org/10.1007/978-3-031-65175-5_8)" by [Michael Eckel](mailto:michael.eckel@sit.fraunhofer.de), [Florian Fenzl](mailto:florian.fenzl@sit.fraunhofer.de), and [Lukas Jäger](mailto:lukas.jaeger@sit.fraunhofer.de) (all [Fraunhofer SIT](https://www.sit.fraunhofer.de/) and [ATHENE Center](https://www.athene-center.de/)) was first published at the 39th International Conference on ICT Systems Security and Privacy Protection ([IFIP SEC 2024](https://ifipsec2024.co.uk/)), organized by Edinburgh Napier University in Edinburgh, United Kingdom.
 
 This repository contains the code and data referred to in the paper: codebase, data sets, anlysis tools, and the analog hardware measurements log format.
 
